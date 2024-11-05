@@ -28,7 +28,7 @@ Equação: A função de perda de erro quadrático médio (MSE) $L$ é definida 
 $$L = \frac{1}{n} \sum_{i=1}^{n} (x_i - \hat{x}_i)^2$$
 
 
-onde $$ x_i $$ é o valor original do embedding e $$\hat{x}_i$$ é o valor reconstruído e $n$ é o número total de elementos no embedding.
+onde $$x_i$$ é o valor original do embedding e $$\hat{x}_i$$ é o valor reconstruído e $n$ é o número total de elementos no embedding.
 
 ---
 
