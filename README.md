@@ -14,7 +14,16 @@ O dataset utilizado neste projeto, sephora_reviews.csv, contém avaliações de 
 
 ## Processo de Geração de Embedding
 
-Para gerar embeddings, utilizamos inicialmente o modelo pré-treinado SBERT (paraphrase-multilingual-MiniLM-L6-v2), que transforma cada avaliação em um vetor de 384 dimensões, capturando relações semânticas gerais. Em seguida, aplicamos um autoencoder com funções de ativação ReLU nas camadas ocultas para refinar esses embeddings para nosso dataset específico. A arquitetura do autoencoder consiste em um encoder que reduz a dimensionalidade de 384 para 256 e depois para 128, seguido por uma camada de espaço latente com 128 dimensões. O decoder então reconstrói os embeddings, expandindo novamente para 256 e finalmente para 384 dimensões. Essa arquitetura permite que o autoencoder aprenda uma representação compacta que enfatiza as características relevantes das avaliações da Sephora. O modelo foi treinado com uma taxa de aprendizado de 0.001 por 30 épocas.
+Utilizamos o modelo pré-treinado SBERT (paraphrase-multilingual-MiniLM-L6-v2) para transformar cada avaliação em um vetor de 384 dimensões, capturando relações semânticas gerais. Para ajustar esses embeddings ao nosso dataset específico, aplicamos um autoencoder com funções de ativação ReLU nas camadas ocultas. A arquitetura do autoencoder é composta por um encoder que reduz a dimensionalidade de 384 para 256 e, em seguida, para 128, seguido por uma camada latente de 128 dimensões; o decoder reconstrói os embeddings, expandindo para 256 e, finalmente, para 384 dimensões. O modelo foi treinado com uma taxa de aprendizado de 0.001 por 30 épocas, buscando uma representação compacta e relevante para as características das avaliações da Sephora.
+
+**Hiperparâmetros do Autoencoder:**
+
+- Dimensões: Encoder (384 → 256 → 128), Latente (128), Decoder (128 → 256 → 384)
+- Função de Ativação: ReLU
+- Taxa de Aprendizado: 0.001
+- Épocas: 30
+
+**Topologia da Rede Neural**
 
 <img src="images/autoencoder.png" alt="Figura 1" width="400"/>  
 
