@@ -105,3 +105,22 @@ Na **Figura 2** (Embeddings Ajustados), os clusters apresentam uma separação m
 ### Summary
 
 Os resultados dos três testes mostram que o sistema de busca semântica é capaz de captar tanto correspondências diretas quanto associações semânticas mais sutis. Para a consulta "acne", o sistema retornou uma lista completa de produtos diretamente relacionados, enquanto para "seco", a lista foi limitada a apenas dois itens altamente relevantes. Na consulta complexa "manchas na pele", o sistema identificou produtos que, embora não mencionem explicitamente "manchas", podem fazer parte de uma rotina que aborda essa questão, demonstrando a capacidade do sistema em capturar nuances e oferecer recomendações úteis para o usuário. 
+
+## Machine Learning Engineering
+
+###  Average Precision (AP) Comparison
+
+<img src="images/APscore.png" alt="Figura 4" width="400"/>  
+
+
+No gráfico acima, observamos que a precisão média (AP) dos embeddings ajustados é ligeiramente superior à dos embeddings pré-treinados. Isso indica que o ajuste fino com o autoencoder pode ter capturado características mais relevantes para os dados específicos do problema, o que melhorou o desempenho na tarefa de classificação. Esse aumento na precisão pode significar que os embeddings ajustados conseguem captar melhor as nuances dos textos do dataset, especialmente quando aplicados a uma tarefa com rótulos artificiais.
+
+No entanto, é importante destacar que a diferença entre os embeddings pré-treinados e os ajustados não é muito grande. Isso pode sugerir que os embeddings SBERT pré-treinados já capturam uma representação semântica bastante robusta, e o ajuste fino com o autoencoder pode não trazer um ganho significativo em todos os contextos. Esse resultado reforça a importância de experimentar diferentes abordagens e medir o impacto do ajuste fino para verificar se ele traz melhorias mensuráveis no desempenho de uma tarefa específica.
+
+###  Métricas de Agrupamento
+
+<img src="images/Kmeans.png" alt="Figura 5" width="400"/> 
+
+Os gráficos de Silhouette Score e Coeficiente de Davies-Bouldin destacam a diferença na qualidade dos clusters entre os embeddings pré-treinados e os ajustados (tuned). No primeiro gráfico, observamos que o Silhouette Score é significativamente mais alto para os embeddings ajustados, o que indica que eles formam clusters mais coesos e bem separados. Em contraste, os embeddings pré-treinados apresentam um Silhouette Score mais baixo, sugerindo que os clusters são menos definidos e com menos separação entre si. Esse resultado sugere que o ajuste fino com o autoencoder ajuda a capturar melhor as semelhanças semânticas dos textos, resultando em agrupamentos mais coerentes.
+
+O segundo gráfico, do Coeficiente de Davies-Bouldin, reforça essa observação ao mostrar uma diferença notável entre os dois tipos de embeddings. Um valor menor para os embeddings ajustados indica clusters mais compactos e bem separados, enquanto o valor mais alto dos embeddings pré-treinados sugere que esses clusters são mais dispersos e se sobrepõem mais. Em conjunto, essas métricas indicam que o ajuste fino dos embeddings com o autoencoder melhora a qualidade da estrutura de agrupamento, tornando-os mais adaptados às particularidades do dataset. Isso é particularmente útil em aplicações onde uma estrutura de clusters clara é essencial para a análise semântica ou para o desempenho de tarefas de busca e recomendação.
