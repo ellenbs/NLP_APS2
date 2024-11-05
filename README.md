@@ -26,7 +26,7 @@ Este projeto foi desenvolvido como parte da APS 2 e explora técnicas de busca b
 
 ## Step 1: Encontrar Embeddings
 
-### Descrição Dataset
+### Descrição do Dataset
 
 O dataset utilizado neste projeto, sephora_reviews.csv, contém avaliações de produtos da Sephora. Cada entrada inclui uma avaliação textual, que pode abordar aspectos variados do produto, como qualidade, eficácia e satisfação do usuário. Essas avaliações são valiosas para entender as opiniões dos clientes e identificar padrões no feedback, pois fornecem informações textuais não estruturadas que refletem as experiências e sentimentos dos diferentes usuários. Este dataset é adequado para análise de embeddings, pois permite explorar as relações semânticas entre as avaliações.
 
