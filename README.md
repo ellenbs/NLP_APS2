@@ -1,18 +1,38 @@
 # Sephora Reviews Embeddings
 
-## Natural Language Processing 2024.2
+## APS2 - Natural Language Processing 2024.2
 
 **Professor:** Tiago Fernandes Tavares
 
 **Alunos:** Ellen Shen e João Magalhaẽs
 
-## Descrição Dataset
+## Estrutura das Pastas
+- `/data`: Contém os arquivos de dados, incluindo o dataset de avaliações da Sephora.
+- `/notebooks`: Jupyter notebooks com experimentos e análises exploratórias.
+- `/models`: Armazena o autoencoder treinado e outros modelos usados no projeto.
+- `/src`: Código-fonte do projeto, incluindo scripts para geração de embeddings, treinamento do autoencoder e métricas de avaliação.
+- `/results`: Resultados dos testes e avaliações, incluindo gráficos de comparação e métricas.
+
+## Requisitos
+
+Antes de rodar o projeto, instale as dependências listadas no arquivo `requirements.txt`. Certifique-se de estar em um ambiente virtual Python.
+
+```bash
+pip install -r requirements.txt
+```
+
+## Introdução
+Este projeto foi desenvolvido como parte da APS 2 e explora técnicas de busca baseada em vetores, utilizando embeddings gerados por modelos de linguagem. O objetivo é representar textos (neste caso, avaliações de produtos da Sephora) em um espaço vetorial de modo que a proximidade entre vetores capture semelhanças semânticas. Esse sistema de recuperação de informações permite consultas mais precisas, comparando vetores gerados a partir de consultas com os vetores de documentos do dataset.
+
+## Step 1: Encontrar Embeddings
+
+### Descrição Dataset
 
 O dataset utilizado neste projeto, sephora_reviews.csv, contém avaliações de produtos da Sephora. Cada entrada inclui uma avaliação textual, que pode abordar aspectos variados do produto, como qualidade, eficácia e satisfação do usuário. Essas avaliações são valiosas para entender as opiniões dos clientes e identificar padrões no feedback, pois fornecem informações textuais não estruturadas que refletem as experiências e sentimentos dos diferentes usuários. Este dataset é adequado para análise de embeddings, pois permite explorar as relações semânticas entre as avaliações.
 
 ---
 
-## Processo de Geração de Embedding
+### Processo de Geração de Embedding
 
 Utilizamos o modelo pré-treinado SBERT (paraphrase-multilingual-MiniLM-L6-v2) para transformar cada avaliação em um vetor de 384 dimensões, capturando relações semânticas gerais. Para ajustar esses embeddings ao nosso dataset específico, aplicamos um autoencoder com funções de ativação ReLU nas camadas ocultas. A arquitetura do autoencoder é composta por um encoder que reduz a dimensionalidade de 384 para 256 e, em seguida, para 128, seguido por uma camada latente de 128 dimensões; o decoder reconstrói os embeddings, expandindo para 256 e, finalmente, para 384 dimensões. O modelo foi treinado com uma taxa de aprendizado de 0.001 por 30 épocas, buscando uma representação compacta e relevante para as características das avaliações da Sephora.
 
@@ -29,7 +49,7 @@ Utilizamos o modelo pré-treinado SBERT (paraphrase-multilingual-MiniLM-L6-v2) p
 
 ---
 
-## Processo de Treinamento
+### Processo de Treinamento
 
 O autoencoder foi treinado utilizando o erro quadrático médio (MSE) como função de perda, que mede a diferença média ao quadrado entre os embeddings originais e suas versões reconstruídas. Essa função de perda é apropriada para nossa tarefa, pois incentiva o modelo a minimizar o erro de reconstrução, garantindo que o autoencoder capture as informações essenciais dos embeddings enquanto remove ruídos e enfatiza características específicas do dataset. Ao minimizar o MSE, o modelo aprende a gerar embeddings mais significativos no contexto das avaliações de produtos, facilitando a análise de similaridade e o agrupamento.
 
@@ -42,7 +62,7 @@ onde $$x_i$$ é o valor original do embedding e $$\hat{x}_i$$ é o valor reconst
 
 ---
 
-## Visualização dos Embeddings
+## Step 2: Visualização dos Embeddings
 
 1. **Pre-Trained Embeddings**
 
@@ -58,7 +78,7 @@ onde $$x_i$$ é o valor original do embedding e $$\hat{x}_i$$ é o valor reconst
 
 ---
 
-## Discussão
+### Discussão
 
 Na **Figura 1** (Embeddings Pré-treinados), observamos clusters formados pela aplicação de TSNE e KMeans aos embeddings do SBERT sem ajuste fino. Embora existam alguns agrupamentos, a separação entre eles não é muito clara, o que indica que o modelo SBERT captura relações semânticas amplas nos textos. No entanto, há uma sobreposição perceptível entre os clusters, e a estrutura geral é difusa. Isso ocorre porque o modelo pré-treinado, embora eficiente para capturar semântica geral da linguagem, não está adaptado às nuances específicas das avaliações de produtos da Sephora em português. Assim, esses clusters podem refletir padrões de linguagem genéricos ou temas amplos, mas podem não diferenciar precisamente tópicos específicos dos produtos ou variações de sentimentos.
 
@@ -66,7 +86,9 @@ Na **Figura 2** (Embeddings Ajustados), os clusters apresentam uma separação m
 
 ---
 
-## Resultados dos Testes
+## Step 3: Busca Semântica
+
+### Resultados dos Testes
 
 1. **Test with Query that Yields 10 Results**
    - **Query**: `"acne"`
@@ -121,7 +143,9 @@ Os resultados dos três testes mostram que o sistema de busca semântica é capa
 
 ---
 
-## Machine Learning Engineering
+## Step 4: Make it Nicer!
+
+### Machine Learning Engineering
 
 
 ###  Comparação de Desempenho
